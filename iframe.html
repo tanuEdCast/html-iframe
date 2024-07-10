@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iframe Page</title>
+</head>
+<body>
+    <button id="sendMessageBtn">Send Message to Parent</button>
+    <script>
+        const worker = new SharedWorker('worker.js');
+        
+        // Handle messages from the worker
+        worker.port.onmessage = function(event) {
+            console.log('Iframe received:', event.data);
+        };
+
+        // Send a message to the worker when the button is clicked
+        document.getElementById('sendMessageBtn').addEventListener('click', function() {
+            worker.port.postMessage('Message from iframe to parent');
+        });
+    </script>
+</body>
+</html>
